@@ -44,6 +44,23 @@ module Simplemvc
     def controller_name
       self.class.to_s.gsub(/Controller$/, "").to_snake_case
     end
+    def dispatch(action)
+      content = self.send(action) #ovo ce postaviti RESPONSE objekat
+      #tj kada send-ujemo akciju, to je isto sto i render action
+      if get_response
+        get_response
+      else #ako nemamo "render" u metodu
+        render(action)
+        get_response
+      end
+    end
 
+    def self.action(action_name)
+      #vratice lambdu
+      ->(env) { self.new(env).dispatch(action_name)}
+      #insancirace kontroler u kojem smo sa ENV-om, kako bismo imali REQUEST objekat
+      # i onda ce dispacirati action name
+      #dispatc salje kontroleru akciju i dobija RESPONSE i vraca RESPONSE
+    end
   end
 end

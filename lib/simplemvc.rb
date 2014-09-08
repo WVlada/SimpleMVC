@@ -20,24 +20,14 @@ module Simplemvc
       controller = controller_class.new(env)
       response = controller.send(action)
       #pravimo kontroler jer ga nismo imali
-
-      if controller.get_response
-        controller.get_response
-      else #ako nemamo "render" u metodu
-
-        #controller bez eksplicitnog pozivanja "render" - hocemo da renderujemo view koji se zove kao ime akcije
-
-        controller.render(action)
-        controller.get_response
-        #[200, {"Content-Type" => "text/html"}, [response]]
-        end
-      end
+    end
 
     def get_controller_and_action(env)
     _, controller_name, action = env["PATH_INFO"].split("/")
     controller_name = controller_name.to_camel_case + "Controller"
     [ Object.const_get(controller_name), action ]
     end
+
 
   end
 end
