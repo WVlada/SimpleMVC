@@ -28,7 +28,17 @@ module Simplemvc
     def render_template(view_name, locals = {})
       filename = File.join("app", "views", controller_name, "#{view_name}.erb")
       template = File.read(filename)
-      Erubis::Eruby.new(template).result(locals)
+
+      varijable = {}
+      instance_variables.each do |var| #imamo :@name, hocemo :name
+        key = var.to_s.gsub("@","").to_sym
+        varijable[key] = instance_variable_get(var)
+      end
+
+      #ovo znaci da "name" varijablu ne uzima vise iz url-a, nego iz kontrolera,
+      #gde smo i stavili @name = Vlada
+      Erubis::Eruby.new(template).result(locals.merge(varijable))
+      #dodajemo varijable localsima
     end
 
     def controller_name
