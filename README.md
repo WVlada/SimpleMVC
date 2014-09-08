@@ -2,19 +2,9 @@
 
 TODO: Write a gem description
 
-## Installation
+## Github addovanje sa brisanjem fajlova
 
-Add this line to your application's Gemfile:
-
-    gem 'simplemvc'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install simplemvc
+git add -u
 
 ## Usage
 
