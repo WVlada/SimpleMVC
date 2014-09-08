@@ -16,9 +16,17 @@ module Simplemvc
       end
       # env ["PATH_INFO"] = "/pages/about" => PagesController.send(:about)
       controller_class, action = get_controller_and_action(env)
-      response = controller_class.new(env).send(action)
-      [200, {"Content-Type" => "text/html"}, [response]]
-    end
+
+      controller = controller_class.new(env)
+      response = controller.send(action)
+      #pravimo kontroler jer ga nismo imali
+
+      if controller.get_response
+        controller.get_response
+        else #ako nemamo "render" u metodu
+          [200, {"Content-Type" => "text/html"}, [response]]
+        end
+      end
 
     def get_controller_and_action(env)
     _, controller_name, action = env["PATH_INFO"].split("/")
