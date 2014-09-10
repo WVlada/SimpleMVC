@@ -3,7 +3,9 @@ require 'erubis'
 
 module Simplemvc
   class Controller
+    
     attr_reader :request
+    
     def initialize(env)
      @request ||= Rack::Request.new(env)
     end

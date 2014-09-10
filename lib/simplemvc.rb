@@ -14,10 +14,8 @@ module Simplemvc
       end
 
       get_rack_app(env).call(env)
-
-
-
+      #ovaj metod ce proveriti URL sa postojecima Routovima, i ako postoji odgo
+      #varajuci ,dipsechoace akciju na njemu
     end
-
   end
 end
